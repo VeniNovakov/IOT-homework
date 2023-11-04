@@ -7,19 +7,28 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def get_all_links():
-    paths = ['/', '/data', '/data/<motion_sensor_id>', '/stats']
-    methods = ['GET', 'POST', 'GET', 'GET']
-    description = ['get refs within the site',
-                    'post an entry of detected motion {"timestamp": integer unix time, "deviceId": integer}',
-                    'get info of a device with deviceId motion_sensor_id',
-                    'get the last device that has detected motion, the most activated sensor and the device with most time since activation'
-                    ]
-    json=[]
-
-    for i in range(len(paths)):
-        json.append({'path': paths[i], 'method': methods[i], 'description': description[i]})
-
-    return json
+    return [
+            {
+                'path': '/',
+                'method': 'GET',
+                'description': 'get app link map'
+                },
+            {
+                'path': '/data', 
+                'method': 'POST', 
+                'description': 'post an entry of detected motion {"timestamp": integer unix time, "deviceId": integer}'
+                },
+            {
+                'path': '/data/{device-id}', 
+                'method': 'GET',
+                'description': 'get information for the device with given device-id'
+                },
+            {
+                'path': '/stats', 
+                'method': 'GET',
+                'description': 'get the last activated sensor, the most activated sensor and the sensor with most time since activation'
+                },
+        ] 
 
 @app.route('/data', methods=['POST'])
 def post_data():
@@ -28,6 +37,11 @@ def post_data():
 
     timestamp = body['timestamp']
     deviceId = body['deviceId']
+
+    _yellow = '\u001b[33m'
+    _cyan   = '\u001b[36m'
+    _end    = '\u001b[0m'
+    print(f'{_yellow}POST{_end} localhost:3000{_cyan}/data{_end}] timestamp: {timestamp}, deviceId: {deviceId}')
 
     if device := db.getByQuery(query={"deviceId": deviceId}):
         device[0]['timestamps'].append(timestamp)
@@ -44,6 +58,7 @@ def post_data():
 @app.route('/data/<motion_sensor_id>')
 def get_sensor_values(motion_sensor_id):
     return db.getByQuery(query={"deviceId": motion_sensor_id})
+    return db.getByQuery(query={"deviceId": motion_sensor_id})
 
 @app.route('/stats')
 def get_sensors_stats():
@@ -57,14 +72,13 @@ def get_sensors_stats():
             last_activated = i
         if len(most_activated['timestamps']) < len(i['timestamps']):
             most_activated = i
-        if most_time_since_activation['timestamps'][0] > i['timestamps'][0]:
-            most_time_since_activation = i
-   
-    return {
-        "last activated": last_activated,
-        "most activated": most_activated,
-        "most time since activation": most_time_since_activation
-    }
+        if naj_mnogo_vreme_neaktiviran['timestamps'][0] > i['timestamps'][0]:
+            naj_mnogo_vreme_neaktiviran = i
+        
+    print("last activated: ",last_activated)    
+    print("most activated: ", most_activated)    
+    print("most time since activation: ", naj_mnogo_vreme_neaktiviran)    
+    return 'success'
 
 
 if __name__ == '__main__':
