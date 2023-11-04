@@ -58,7 +58,6 @@ def post_data():
 @app.route('/data/<motion_sensor_id>')
 def get_sensor_values(motion_sensor_id):
     return db.getByQuery(query={"deviceId": motion_sensor_id})
-    return db.getByQuery(query={"deviceId": motion_sensor_id})
 
 @app.route('/stats')
 def get_sensors_stats():
@@ -72,13 +71,14 @@ def get_sensors_stats():
             last_activated = i
         if len(most_activated['timestamps']) < len(i['timestamps']):
             most_activated = i
-        if naj_mnogo_vreme_neaktiviran['timestamps'][0] > i['timestamps'][0]:
-            naj_mnogo_vreme_neaktiviran = i
-        
-    print("last activated: ",last_activated)    
-    print("most activated: ", most_activated)    
-    print("most time since activation: ", naj_mnogo_vreme_neaktiviran)    
-    return 'success'
+        if most_time_since_activation['timestamps'][0] > i['timestamps'][0]:
+            most_time_since_activation = i
+  
+    return {
+        "last activated": last_activated,   
+        "most activated": most_activated,    
+        "most time since activation": most_time_since_activation
+    }
 
 
 if __name__ == '__main__':
