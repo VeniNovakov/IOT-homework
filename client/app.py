@@ -15,7 +15,7 @@ def monitor_data(identifier: str) -> None:
     while True:
         request_data['timestamp'] = int(time.time())
         # NOTE: potentially might need to check if the data submit was successful
-        requests.post(f'https://localhost:{_SERVER_PORT}', data=request_data)
+        requests.post(f'https://localhost:{_SERVER_PORT}/data', data=request_data)
         time.sleep(10)
 
 if __name__ == '__main__':
