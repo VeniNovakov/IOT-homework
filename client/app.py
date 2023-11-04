@@ -9,7 +9,7 @@ _NUM_THREADS = 10
 def monitor_data(identifier: str) -> None:
     request_data: dict = {       \
         'timestamp': 0,          \
-        'device_id': identifier, \
+        'deviceId': identifier, \
     }
 
     while True:

@@ -1,6 +1,8 @@
 from flask import Flask, request
 import pysondb
 
+import json
+
 db = pysondb.getDb('../db/data.json')
 
 most_used_device = '' 
@@ -11,28 +13,33 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def get_all_links():
-    return 200
+    return [ \
+        {'path': '/', 'method': 'get'}, \
+        {'path': '/data', 'method': 'post'}, \
+        {'path': '/data/{motion-sensor-id>', 'method': 'get'}, \
+        {'path': '/stats', 'method': 'get'}, \
+    ]
 
 @app.route('/data', methods=['POST'])
 def post_data():
-
-    body = request.form
+    body = request.get_json(force=True)
 
     timestamp = body['timestamp']
     deviceId = body['deviceId']
-    print('....>.................................................................')
+    print(f'TIMESTAMP: {timestamp}\nDEVICEID: {deviceId}\n')
 
     latest_used_device = deviceId
+
     try:
         device = db.getByQuery(query={"deviceId": deviceId})
         device['timestamps'].append(timestamp)
 
         db.update(device)
+
     except:
         db.add({"deviceId": deviceId, "timestamps":[timestamp]})
+
     return 'success'
-
-
 
 @app.route('/data/<motion_sensor_id>')
 def get_sensor_values(motion_sensor_id):
