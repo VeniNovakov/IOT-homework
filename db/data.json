@@ -1,0 +1,54 @@
+{
+  "data": [
+     {
+        "deviceId": 12,
+        "timestamps": [19022, 19023],
+        "id": 243224433279529593
+     },
+     {
+        "deviceId": 8,
+        "timestamps": [18888, 18889],
+        "id": 1234567890
+     },
+     {
+        "deviceId": 19,
+        "timestamps": [20222, 20223],
+        "id": 987654321
+     },
+     {
+        "deviceId": 3,
+        "timestamps": [17777, 17778],
+        "id": 567890123
+     },
+     {
+        "deviceId": 5,
+        "timestamps": [15000, 15001],
+        "id": 1111222233
+     },
+     {
+        "deviceId": 14,
+        "timestamps": [20500, 20501],
+        "id": 4444555566
+     },
+     {
+        "deviceId": 22,
+        "timestamps": [21555, 21556],
+        "id": 9999000011
+     },
+     {
+        "deviceId": 7,
+        "timestamps": [16666, 16667],
+        "id": 2222333344
+     },
+     {
+        "deviceId": 10,
+        "timestamps": [19999, 20000],
+        "id": 8888999900
+     },
+     {
+        "deviceId": 2,
+        "timestamps": [14444, 14445],
+        "id": 5555666777
+     }
+  ]
+}
