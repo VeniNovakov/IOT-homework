@@ -62,6 +62,10 @@ def get_sensor_values(motion_sensor_id):
 @app.route('/stats')
 def get_sensors_stats():
     devices = db.getAll()
+    
+    if len(devices) == 0:
+        return 'No devices in the database', 400
+
     last_activated = devices[0]
     most_activated = devices[0]
     most_time_since_activation = devices[0]
