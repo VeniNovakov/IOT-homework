@@ -1,7 +1,7 @@
 from flask import Flask, request
 import pysondb
 
-db = pysondb.getDb('../db/data.json')
+db = pysondb.getDb('db/data.json')
 
 app = Flask(__name__)
 

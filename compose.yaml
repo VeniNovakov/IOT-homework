@@ -1,0 +1,24 @@
+services:
+  server:
+    container_name: iot-hw2-server
+    image: iot-hw2-server-img
+    volumes:
+      - database:/app/db
+    ports:
+      - 3000:3000
+    networks:
+      - iot-hw2-nw
+
+  client:
+    container_name: iot-hw2-client
+    image: iot-hw2-client-img
+    networks:
+      - iot-hw2-nw
+    depends_on:
+      - server
+
+volumes:
+  database:
+
+networks:
+  iot-hw2-nw:
