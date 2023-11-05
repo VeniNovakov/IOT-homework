@@ -1,3 +1,4 @@
+#!/bin/sh
 
 set +x
 docker build ./client -t iot-hw2-client-img
