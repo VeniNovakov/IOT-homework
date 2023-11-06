@@ -3,7 +3,7 @@ import pysondb
 
 db = pysondb.getDb('db/data.json')
 
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__, template_folder='./static/templates')
 
 @app.route('/', methods=['GET'])
 def get_all_links():

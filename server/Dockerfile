@@ -9,6 +9,7 @@ ENV PYTHONPATH=/usr/local/lib/python3.10/site-packages
 RUN apk add python3
 COPY app.py /app/app.py
 COPY ./db /app/db
+COPY ./static/templates /app/static/templates
 
 VOLUME /app/db
 
