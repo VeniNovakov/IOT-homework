@@ -21,6 +21,12 @@
             <td style="border: 1px solid black; font-size: medium;">{{row[1].deviceId}}</td>
         </tr>
         {% endfor %}
+
+        {% for time in timestamps %}
+        <tr>
+            <td style="border: 1px solid black; font-size: medium;">{{time}}</td>
+        </tr>
+        {% endfor %}
     </table>
 </table>
 </body>

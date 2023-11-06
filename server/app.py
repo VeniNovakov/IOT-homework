@@ -3,7 +3,7 @@ import pysondb
 
 db = pysondb.getDb('db/data.json')
 
-app = Flask(__name__, template_folder='./static/templates')
+app = Flask(__name__, template_folder='./templates')
 
 @app.route('/', methods=['GET'])
 def get_all_links():
@@ -55,9 +55,16 @@ def post_data():
 
 
 
-@app.route('/data/<motion_sensor_id>')
-def get_sensor_values(motion_sensor_id):
-    return db.getByQuery(query={"deviceId": motion_sensor_id})
+@app.route('/data/<motion_sensor_id>', methods=['GET'])
+def get_sensor_values(motion_sensor_id): 
+
+    if device := db.getByQuery(query={"deviceId": motion_sensor_id}):
+        headers = ['timestamp']
+        timestamps = device[0]['timestamps']
+        
+        return render_template('index.html', headers=headers, timestamps=timestamps)
+        
+    return 'No such device', 400
 
 @app.route('/stats')
 def get_sensors_stats():
