@@ -1,9 +1,9 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import pysondb
 
 db = pysondb.getDb('db/data.json')
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 
 @app.route('/', methods=['GET'])
 def get_all_links():
@@ -78,11 +78,15 @@ def get_sensors_stats():
         if most_time_since_activation['timestamps'][0] > i['timestamps'][0]:
             most_time_since_activation = i
   
-    return {
-        "last activated": last_activated,   
-        "most activated": most_activated,    
-        "most time since activation": most_time_since_activation
-    }
+    obj = [
+        ["last activated", last_activated],   
+        ["most activated", most_activated],   
+        ["most time since activation", most_time_since_activation]
+    ]
+    headers=['stat', 'device ID']
+
+    return render_template('index.html', headers=headers, stats=obj)
+
 
 
 if __name__ == '__main__':

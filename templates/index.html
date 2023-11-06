@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Image</title>
+</head>
+<body>
+<table >
+    <thead style="border: 1px solid black; font-size: medium;">
+        <tr style="border: 1px solid black; font-size: medium;">
+            {% for header in headers %}
+            <th style="border: 1px solid black; font-size: medium;">{{header}}</th>
+           {% endfor %}
+        </tr>
+    </thead>
+    <tbody >
+        {% for row in stats %}
+        <tr>
+            <td style="border: 1px solid black; font-size: medium;">{{row[0]}}</td>
+            <td style="border: 1px solid black; font-size: medium;">{{row[1].deviceId}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</table>
+</body>
+</html>
